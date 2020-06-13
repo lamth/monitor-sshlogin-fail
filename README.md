@@ -99,7 +99,7 @@ OK coi như xong phần gửi tin nhắn.
 ```
 yum install inotify-tools -y
 ```
-
+- Hướng giải quyết: Chúng ta sẽ sử dụng công cụ theo dõi file là inotify. Mỗi khi file có chỉnh sửa, ta lại kiểm tra xem 
 - tạo file ssh-alert.sh
 ```
 vi /root/ssh-alert.sh
@@ -134,20 +134,20 @@ while true
       do
         LOGFILEINONEW=$(ls -i $LOGFILE | awk '{print $1}')
         # Check if log file rotated
-	if [[ $LOGFILEINO != $LOGFILEINONEW ]];
+	      if [[ $LOGFILEINO != $LOGFILEINONEW ]];
         then
           LOGFILEINO=$LOGFILEINONEW
           break
         fi
         # If new line from log file have "Failed password", script will send
-	## this log line as a message to telegram.
+	      ## this log line as a message to telegram.
         alert=$(tail -n1 $LOGFILE)
         if echo $alert | grep "Failed password";
         then
           curl -X POST "https://api.telegram.org/bot$ACCESS_TOKEN/sendMessage" -d "chat_id=$CHAT_ID&text=$alert"
         fi
     done
-
+  done
 ```
 - Thêm quyền execute cho script
 ``` 
@@ -155,5 +155,12 @@ chmod u+x /root/ssh-alert
 ```
 - Chạy script: 
 ```
-bash script > /dev/null 2>&1 
+bash  /root/ssh-alert > /dev/null 2>&1 
 ```
+## Tạo service từ script.
+
+1. Download script
+```
+wget 
+```
+2. 
