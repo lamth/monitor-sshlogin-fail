@@ -157,10 +157,28 @@ chmod u+x /root/ssh-alert
 ```
 bash  /root/ssh-alert > /dev/null 2>&1 
 ```
-## Tạo service từ script.
+## Cài đặt và tạo service
 
 1. Download script
 ```
-wget 
+wget https://raw.githubusercontent.com/lamth/monitor-sshlogin-fail/master/ssh-alert.sh && mv ssh-alert.sh /usr/bin/
 ```
-2. 
+2. Cấu hình
+- Sửa script /usr/bin/ssh-alert.sh như sau:
+  - Gán biến `ACCESS_TOKEN` bằng giá trị access token của Telegram bot, và `CHAT_ID` bằng ID của nhóm chat để bot nhắn tin đến
+  - Ngoài ra có thể thay đồi biến `LOGFILE` bằng file chứa log xác thực của hệ thống( ví dụ `/var/log/auth.log` trên Ubuntu)
+
+3. Download service file:
+```
+wget https://raw.githubusercontent.com/lamth/monitor-sshlogin-fail/master/ssh-alert.service && mv ssh-alert.service /etc/systemd/system/
+```
+
+4. Khởi động dịch vụ:
+```
+systemctl start ssh-alert
+systemctl enable ssh-alert
+```
+
+
+
+

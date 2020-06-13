@@ -1,5 +1,5 @@
 [Unit]
-Description=SSH Aleart to Telegram
+Description=Alert SSH fail to Telegram
 After=network.target
 StartLimitIntervalSec=0
 [Service]
@@ -7,7 +7,7 @@ Type=simple
 Restart=always
 RestartSec=1
 User=root
-ExecStart=/bin/bash /usr/bin/ssh-aleart.sh
+ExecStart=/bin/bash /usr/bin/ssh-alert.sh
 
 [Install]
 WantedBy=multi-user.target
